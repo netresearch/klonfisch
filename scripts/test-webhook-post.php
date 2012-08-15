@@ -12,7 +12,7 @@ $data = <<<JSON
             },
             "committed_at": "2012-01-10T11:02:27-07:00",
             "id": "df5744f7bc8663b39717f87742dc94f52ccbf4dd",
-            "message": "added a place to put the docstring for Book",
+            "message": "TEST-2, TEST-33: added a place to put the docstring for Book",
             "timestamp": "2012-01-10T11:02:27-07:00",
             "url": "http:\/\/gitorious.org\/q\/mainline\/commit\/df5744f7bc8663b39717f87742dc94f52ccbf4dd"
         }
