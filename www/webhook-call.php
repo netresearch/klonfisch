@@ -4,6 +4,8 @@
  * in the database.
  *
  * Test it with scripts/test-webhook-post.php
+ *
+ * @author Christian Weiske <christian.weiske@netresearch.de>
  */
 require __DIR__ . '/../data/klonfisch.config.php';
 
