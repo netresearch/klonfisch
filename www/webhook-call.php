@@ -2,6 +2,8 @@
 /**
  * Accepts gitorious web hook calls and stores them
  * in the database.
+ *
+ * Test it with scripts/test-webhook-post.php
  */
 require __DIR__ . '/../data/klonfisch.config.php';
 
