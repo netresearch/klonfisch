@@ -1,0 +1,3 @@
+<Files "config">
+ ForceType 'application/vnd.atl.streams+json'
+</Files>

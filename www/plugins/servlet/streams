@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:atlassian="http://streams.atlassian.com/syndication/general/1.0">
+  <id>http://cyberdyne.nr:8060/activity?local=true&amp;use-accept-lang=true&amp;maxResults=5</id>
+  <link href="http://cyberdyne.nr:8060/activity?local=true&amp;use-accept-lang=true&amp;maxResults=5" rel="self"/>
+  <title type="text">Activity Streams</title>
+  <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  <updated>2012-08-10T14:31:08.758Z</updated>
+  <entry xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <id>urn:uuid:74527ef2-ab53-366d-a98f-7a445456b208</id>
+    <title type="html">&lt;span class="activity-item-user activity-item-author"&gt;Christian Weiske &amp;lt;christian.weiske@netresearch.de&amp;gt;&lt;/span&gt; committed changeset &lt;a href="http://cyberdyne:8060/changelog/test?cs=e741deb4b4b1c74e2025d33e34580a9a7acfc5e5"&gt;e741deb4b4b1c74e2025d33e34580a9a7acfc5e5&lt;/a&gt; to the &lt;a href="http://cyberdyne:8060/changelog/test"&gt;test&lt;/a&gt; project</title>
+    <summary type="html">
+&lt;blockquote&gt;
+    NRFE-262: foo
+
+&lt;/blockquote&gt;
+&lt;ul class='commit-list'&gt;
+&lt;/ul&gt;</summary>
+    <content type="html">
+&lt;blockquote&gt;
+    NRFE-262: foo
+
+&lt;/blockquote&gt;
+&lt;ul class='commit-list'&gt;
+&lt;/ul&gt;</content>
+    <author xmlns:usr="http://streams.atlassian.com/syndication/username/1.0">
+      <name>Christian Weiske &lt;christian.weiske@netresearch.de&gt;</name>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="http://cyberdyne:8060/avatar/?s=16" media:height="16" media:width="16"/>
+      <link xmlns:media="http://purl.org/syndication/atommedia" rel="photo" href="http://cyberdyne:8060/avatar/?s=48" media:height="48" media:width="48"/>
+      <usr:username>Christian Weiske &lt;christian.weiske@netresearch.de&gt;</usr:username>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    </author>
+    <published>2012-08-10T13:59:30.000Z</published>
+    <updated>2012-08-10T13:59:30.000Z</updated>
+    <category term="commit"/>
+    <link href="http://cyberdyne:8060/changelog/test?cs=e741deb4b4b1c74e2025d33e34580a9a7acfc5e5" rel="alternate"/>
+    <link href="http://cyberdyne:8060/download/resources/com.atlassian.streams.fisheye/images/changeset.gif" rel="http://streams.atlassian.com/syndication/icon" title="Changeset"/>
+    <generator uri="http://cyberdyne:8060"/>
+    <atlassian:application>com.atlassian.fisheye</atlassian:application>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <activity:verb>http://streams.atlassian.com/syndication/verbs/fisheye/push</activity:verb>
+    <activity:object>
+      <id>urn:uuid:74527ef2-ab53-366d-a98f-7a445456b208</id>
+      <title type="text">e741deb4b4b1c74e2025d33e34580a9a7acfc5e5</title>
+      <link rel="alternate" href="http://cyberdyne:8060/changelog/test?cs=e741deb4b4b1c74e2025d33e34580a9a7acfc5e5"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/changeset</activity:object-type>
+    </activity:object>
+    <activity:target>
+      <id>urn:uuid:2b7f0727-cc03-31dc-9c80-a76f920247f6</id>
+      <title type="text">test</title>
+      <link rel="alternate" href="http://cyberdyne:8060/changelog/test"/>
+      <activity:object-type>http://streams.atlassian.com/syndication/types/repository</activity:object-type>
+    </activity:target>
+    <atlassian:timezone-offset>+0200</atlassian:timezone-offset>
+  </entry>
+</feed>

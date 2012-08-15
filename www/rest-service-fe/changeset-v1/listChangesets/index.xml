@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<results expand="changesets">
+  <changesets>
+    <changeset>
+      <csid>e741deb4b4b1c74e2025d33e34580a9a7acfc5e5</csid>
+      <date>2012-08-10T15:59:30+02:00</date>
+      <author>Christian Weiske &lt;christian.weiske@netresearch.de&gt;</author>
+      <branch>master</branch>
+      <comment>TEST-1, NRFE-262: foo
+      </comment>
+      <revisions size="1">
+        <revision totalLines="0" fileRevisionState="ADDED" rev="e741deb4b4b1c74e2025d33e34580a9a7acfc5e5" path="foo" linesRemoved="0" linesAdded="0" date="2012-08-10T15:59:30+02:00" csid="e741deb4b4b1c74e2025d33e34580a9a7acfc5e5" contentLink="/browse/~raw,r=e741deb4b4b1c74e2025d33e34580a9a7acfc5e5/test/foo" author="Christian Weiske &lt;christian.weiske@netresearch.de&gt;">
+          <comment>TEST-1, NRFE-262: foo
+          </comment>
+        </revision>
+      </revisions>
+    </changeset>
+    <changeset>
+      <csid>e741deb4b4b1c74e2025d33e34580a9a7acfc5e6</csid>
+      <date>2012-08-11T15:59:30+02:00</date>
+      <author>Christian Weiske &lt;christian.weiske@netresearch.de&gt;</author>
+      <branch>master</branch>
+      <comment>dummy dummy dummy TEST-1
+      </comment>
+      <revisions size="1">
+        <revision totalLines="0" fileRevisionState="ADDED" rev="e741deb4b4b1c74e2025d33e34580a9a7acfc5e6" path="foo" linesRemoved="0" linesAdded="0" date="2012-08-10T15:59:30+02:00" csid="e741deb4b4b1c74e2025d33e34580a9a7acfc5e6" contentLink="/browse/~raw,r=e741deb4b4b1c74e2025d33e34580a9a7acfc5e5/test/foo" author="Christian Weiske &lt;christian.weiske@netresearch.de&gt;">
+          <comment>dummy dummy dummy TEST-1 revision
+          </comment>
+        </revision>
+      </revisions>
+    </changeset>
+  </changesets>
+</results>

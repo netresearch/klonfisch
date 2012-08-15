@@ -1,0 +1,10 @@
+<Files server-v1>
+ ForceType 'application/xml'
+ RewriteEngine On
+ RewriteBase /
+ RewriteRule .* - [R=401,L]
+ ErrorDocument 401 /rest-service-fe/server-v1.err
+</Files>
+<Files server-v1.err>
+ ForceType 'application/xml'
+</Files>

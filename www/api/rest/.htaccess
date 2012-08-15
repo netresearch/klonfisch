@@ -1,0 +1,6 @@
+<Files "repositories">
+ ForceType 'text/xml; charset=utf-8'
+</Files>
+<Files "query">
+ ForceType 'text/xml; charset=utf-8'
+</Files>
