@@ -1,5 +1,5 @@
 <?php
-declare(encoding = 'utf-8');
+//declare(encoding = 'utf-8');
 /**
  * Lists commits for a given keyword.
  * Used by the Jira issue and project "Source" tab.
