@@ -12,7 +12,7 @@
  * @license  AGPLv3 or later
  * @link     https://gitorious.nr/klonfisch
  */
-require_once __DIR__ . '/../../../../data/klonfisch.config.php';
+require_once __DIR__ . '/../../../www-header.php';
 
 if (!isset($_GET['expand'])) {
     header('HTTP/1.0 400 Bad Request');
@@ -90,13 +90,7 @@ $stmt = $db->prepare(
     . $limitChangesets
 );
 
-$ok = $stmt->execute(array(':keyword' => $keyword));
-if ($ok === false) {
-    header('HTTP/1.0 500 Internal server error');
-    echo "SQL error\n";
-    echo implode(' / ', $stmt->errorInfo()) . "\n";
-    exit(1);
-}
+checkDbResult($stmt, $stmt->execute(array(':keyword' => $keyword)));
 header('Content-Type: application/xml');
 
 $xml = new XMLWriter();
