@@ -1,4 +1,8 @@
 RewriteEngine On
 RewriteBase /changelog/
+
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule .* link.php [L]
+RewriteRule ~br=(.*)$ link-branch.php?br=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule .* link-commit.php [L]

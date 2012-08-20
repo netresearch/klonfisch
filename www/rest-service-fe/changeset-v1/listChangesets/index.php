@@ -103,12 +103,17 @@ $xml->writeAttribute('expand', 'changesets');
 
 $xml->startElement('changesets');
 while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //necessary for branch links
+    $branch = $arRow['c_branch']
+        . ' in '
+        . $arRow['c_project_name'] . '/'
+        . $arRow['c_repository_name'];
     $xml->startElement('changeset');
 
     $xml->writeElement('csid',    $arRow['c_hash']);
     $xml->writeElement('date',    date('c', strtotime($arRow['c_date'])));
     $xml->writeElement('author',  $arRow['c_author']);
-    $xml->writeElement('branch',  $arRow['c_branch']);
+    $xml->writeElement('branch',  $branch);
     $xml->writeElement('comment', $arRow['c_message']);
 
     $xml->startElement('revisions');

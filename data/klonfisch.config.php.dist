@@ -2,5 +2,6 @@
 $dbDsn = 'mysql:host=192.168.1.47;dbname=klonfisch_cwe';
 $dbUser = 'klonfisch';
 $dbPass = 'klonfisch';
+$gitoriousUrl = 'https://gitorious.nr/';
 
 ?>
