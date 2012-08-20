@@ -3,7 +3,7 @@
 echo file_get_contents(
     'http://klonfisch.cyberdyne.nr'
     . '/rest-service-fe/changeset-v1/listChangesets/'
-    . '?expand=changesets%5B0:20%5D.revisions%5B0:29%5D'
+    . '?expand=changesets%5B-21:-1%5D.revisions%5B0:29%5D'
     . '&comment=JGA-4'
     . '&p4JobFixed=JGA-4'
     . '&rep=test'

@@ -15,26 +15,63 @@
 require_once __DIR__ . '/../../../../data/klonfisch.config.php';
 
 if (!isset($_GET['expand'])) {
-    header('400 Bad Request');
+    header('HTTP/1.0 400 Bad Request');
     echo "expand GET parameter missing\n";
     exit(1);
 }
 if (!isset($_GET['comment'])) {
-    header('400 Bad Request');
+    header('HTTP/1.0 400 Bad Request');
     echo "comment GET parameter missing\n";
     exit(1);
 }
 if (!isset($_GET['rep'])) {
-    header('400 Bad Request');
+    header('HTTP/1.0 400 Bad Request');
     echo "rep GET parameter missing\n";
     exit(1);
 }
 
 $keyword = $_GET['comment'];
 if ($keyword == '') {
-    header('400 Bad Request');
+    header('HTTP/1.0 400 Bad Request');
     echo "comment is empty\n";
     exit(1);
+}
+
+$orderByChangesets = ' ORDER BY c_date DESC';
+$limitChangesets   = '';
+
+$bListRevisions = false;
+$nRevisionsFrom = 0;
+$nRevisionsTo   = 10;
+
+if ($_GET['expand'] != '') {
+    $arGetParts = explode('.', $_GET['expand']);
+    $pattern = '#^([a-z]+)\[([-0-9]+):([-0-9]+)\]$#';
+    foreach ($arGetParts as $getPart) {
+        if (!preg_match($pattern, $getPart, $arMatches)) {
+            header('HTTP/1.0 400 Bad Request');
+            echo "expand parameter is invalid\n";
+            exit(1);
+        }
+        list(, $type, $start, $end) = $arMatches;
+        if ($type == 'changesets') {
+            if ($start < 0) {
+                //changesets[-21:-1] -> show 20 oldest changesets
+                $orderByChangesets = ' ORDER BY c_date ASC';
+                $num = abs($start) - abs($end) + 1;
+                $start = abs($end) - 1;
+            } else {
+                //changeset[0:20] -> show 20 newest changesets
+                $orderByChangesets = ' ORDER BY c_date DESC';
+                $num = $end - $start + 1;
+            }
+            $limitChangesets = ' LIMIT ' . (int)$start . ', ' . (int)$num;
+        } else if ($type == 'revisions') {
+            $bListRevisions = true;
+            $nRevisionsFrom = (int)$start;
+            $nRevisionsTo   = (int)$end;
+        }
+    }
 }
 
 $db = new PDO(
@@ -49,9 +86,17 @@ $stmt = $db->prepare(
     . ' JOIN keywords_commits USING (c_id)'
     . ' JOIN keywords USING (k_id)'
     . ' WHERE k_keyword = :keyword'
+    . $orderByChangesets
+    . $limitChangesets
 );
 
-$stmt->execute(array(':keyword' => $keyword));
+$ok = $stmt->execute(array(':keyword' => $keyword));
+if ($ok === false) {
+    header('HTTP/1.0 500 Internal server error');
+    echo "SQL error\n";
+    echo implode(' / ', $stmt->errorInfo()) . "\n";
+    exit(1);
+}
 header('Content-Type: application/xml');
 
 $xml = new XMLWriter();
