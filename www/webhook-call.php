@@ -17,14 +17,14 @@ declare(encoding = 'utf-8');
 require __DIR__ . '/../data/klonfisch.config.php';
 
 if (!isset($_POST['payload'])) {
-    header('400 Bad request');
+    header('HTTP/1.0 400 Bad request');
     echo "Payload missing\n";
     exit(1);
 }
 
 $payload = json_decode($_POST['payload']);
 if ($payload === null) {
-    header('400 Bad request');
+    header('HTTP/1.0 400 Bad request');
     echo "Payload cannot be decoded\n";
     exit(1);
 }
