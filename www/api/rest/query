@@ -1,4 +1,15 @@
-<response><row><reviews>
-</reviews>
-</row>
+<response>
+ <!--
+ <row>
+  <reviews>
+  </reviews>
+ </row>
+
+ <row>
+   <date>2012-08-15T11:28:16.00Z</date>
+   <csid>8719b4c92e9adc40c2197fe839b772a774c9e7e9</csid>
+   <linesAdded>1</linesAdded>
+   <linesRemoved>0</linesRemoved>
+ </row>
+ -->
 </response>
