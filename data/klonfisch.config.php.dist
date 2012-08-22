@@ -4,4 +4,11 @@ $dbUser = 'klonfisch';
 $dbPass = 'klonfisch';
 $gitoriousUrl = 'https://gitorious.nr/';
 
+$klonfischUrl = 'http://klonfisch.gitorious.nr/';
+
+$gitoriousDbDsn  = 'mysql:host=192.168.1.47;dbname=gitorioushooktest';
+$gitoriousDbUser = 'klonfisch';
+$gitoriousDbPass = 'klonfisch';
+//user login of gitorious user that creates the hooks
+$gitoriousDbHookUser = 'christian-weiske';
 ?>
