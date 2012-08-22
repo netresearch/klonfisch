@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<entities>
-  <entity iconUrl="http://klonfisch.cyberdyne.nr/repository.png" typeId="fecru.repository" name="test" key="test"/>
-  <entity iconUrl="http://klonfisch.cyberdyne.nr/project.png" typeId="fecru.project" name="cweDefault Project" key="CR"/>
-</entities>
