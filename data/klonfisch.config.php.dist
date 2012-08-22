@@ -1,4 +1,7 @@
 <?php
+//generate it with scripts/gen-uuid.php
+$klonfischUuid = '46bc9c7c-0bad-3503-9ddf-0123456789ab';
+
 $dbDsn = 'mysql:host=192.168.1.47;dbname=klonfisch_cwe';
 $dbUser = 'klonfisch';
 $dbPass = 'klonfisch';

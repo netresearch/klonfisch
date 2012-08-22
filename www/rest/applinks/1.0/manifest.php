@@ -1,7 +1,11 @@
+<?php
+require_once __DIR__ . '/../../../www-header.php';
+header('Content-Type: application/xml');
+?>
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <manifest>
-  <id>46bc9c7c-0bad-3503-9ddf-0123456789ab</id><!-- must be unique -->
-  <name>klonfisch</name>
+  <id><?php echo $klonfischUuid; ?></id>
+  <name>Klonfisch</name>
   <typeId>fecru</typeId>
   <version>2.7.15</version>
   <buildNumber>2007015</buildNumber>
@@ -17,5 +21,5 @@
   <outboundAuthenticationTypes>com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider</outboundAuthenticationTypes>
 -->
   <publicSignup>true</publicSignup>
-  <url>http://klonfisch.cyberdyne.nr</url>
+  <url><?php echo $klonfischUrl; ?></url>
 </manifest>

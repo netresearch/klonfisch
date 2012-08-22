@@ -1,3 +1,6 @@
+RewriteEngine On
+RewriteRule manifest manifest.php [L]
+
 <Files "manifest">
  ForceType 'application/xml'
 </Files>
