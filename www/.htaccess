@@ -1,3 +1,4 @@
 RewriteEngine on
 RewriteBase /
-RewriteRule ^rest-service$ - [L,R=404]
+#do not crucible api requests in apache error log
+RewriteRule ^rest-service/ - [L,R=404]
