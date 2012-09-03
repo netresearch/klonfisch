@@ -33,7 +33,7 @@ $stmt = $db->prepare(
 checkDbResult($stmt, $stmt->execute(array(':hash' => $hash)));
 $arRow = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($arRow === false) {
-    header('HTTP/1.0 404 Bad Request');
+    header('HTTP/1.0 404 Not Found');
     echo "Commit not found\n";
     exit(1);
 }
