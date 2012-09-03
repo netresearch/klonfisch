@@ -1,6 +1,6 @@
 Top committers today:
 
-SELECT COUNT(*) as commits, c_author
+SELECT COUNT(*) as commits, c_author, REPEAT('-', COUNT(*)) as graph
 FROM `commits`
 WHERE DATE(c_date) = CURDATE()
 GROUP BY c_author
@@ -8,7 +8,7 @@ ORDER BY commits DESC
 
 Top committers week:
 
-SELECT COUNT(*) as commits, c_author
+SELECT COUNT(*) as commits, c_author, REPEAT('-', COUNT(*)) as graph
 FROM commits
 WHERE YEAR(c_date) = YEAR(CURDATE()) AND WEEK(c_date) = WEEK(CURDATE())
 GROUP BY c_author
