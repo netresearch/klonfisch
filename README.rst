@@ -26,6 +26,7 @@ Missing features
   `issue #128`__
 - Project statistics
 - Authentication - everyone can see all commits
+- Activity streams
 
 __ https://issues.gitorious.org/issues/128
 
