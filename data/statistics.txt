@@ -14,3 +14,9 @@ WHERE YEAR(c_date) = YEAR(CURDATE()) AND WEEK(c_date) = WEEK(CURDATE())
 GROUP BY c_author
 ORDER BY commits DESC
 
+SELECT COUNT(*) AS commits, substring_index(c_author, ' <', 1) AS name
+FROM commits
+WHERE YEAR(c_date) = YEAR(CURDATE())
+AND WEEK(c_date) = WEEK(CURDATE())
+GROUP BY c_author
+ORDER BY commits DESC
