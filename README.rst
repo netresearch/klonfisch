@@ -161,7 +161,11 @@ I have no idea how to deactivate them.
 If you know how, tell me.
 
 
-=======
+
+===============
+About Klonfisch
+===============
+
 License
 =======
 Klonfisch is licensed under the `AGPL v3`__ or later.
@@ -169,9 +173,13 @@ Klonfisch is licensed under the `AGPL v3`__ or later.
 __ http://www.gnu.org/licenses/agpl
 
 
-======
 Author
 ======
 Christian Weiske, `Netresearch GmbH & Co KG`__
 
 __ http://www.netresearch.de/
+
+
+Homepage
+========
+Klonfisch is available at https://github.com/netresearch/klonfisch
