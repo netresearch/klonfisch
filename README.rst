@@ -50,7 +50,7 @@ Screenshots
 ============
 How it works
 ============
-Klonfish is a PHP application that sits between JIRA and Gitorious:
+Klonfisch is a PHP application that sits between JIRA and Gitorious:
 
 Gitorious sends commit information to Klonfisch which stores them
 in a MySQL database.
