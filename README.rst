@@ -3,7 +3,7 @@ Klonfisch, the FishEye simulator for Gitorious
 **********************************************
 
 Implements the Atlassian FishEye__ API for Gitorious__, so that
-you can view Gitorious Commits in Jira__.
+you can view Gitorious Commits in JIRA__.
 
 __ http://atlassian.com/software/fisheye/
 __ https://gitorious.org/gitorious
@@ -16,7 +16,7 @@ Features
 ========
 
 - Simulates a part of the FishEye API
-- Works with the Jira FishEye plugin 5.0.7
+- Works with the JIRA FishEye plugin 5.0.7
 - Shows commits on issues (Tab "Source")
 - Shows commits for projects (Tab "Source")
 
@@ -38,30 +38,30 @@ Screenshots
    :height: 200px
    :target: doc/issue-source.png
 
-   Jira's issue source tab
+   JIRA's issue source tab
 
 .. figure:: doc/project-source.png
    :height: 200px
    :target: doc/project-source.png
 
-   Jira's project source tab
+   JIRA's project source tab
 
 
 ============
 How it works
 ============
-Klonfish is a PHP application that sits between Jira and Gitorious:
+Klonfish is a PHP application that sits between JIRA and Gitorious:
 
 Gitorious sends commit information to Klonfisch which stores them
 in a MySQL database.
 This is done via "web hooks".
 
-Jira on the other hand talks to Klonfisch, asking for commit information
+JIRA on the other hand talks to Klonfisch, asking for commit information
 for projects or single issues.
-Klonfisch searches in the commit database and returns them to Jira.
-Jira then displays the commits in the "Source" tab of issues and projects.
+Klonfisch searches in the commit database and returns them to JIRA.
+JIRA then displays the commits in the "Source" tab of issues and projects.
 
-You just have to install the FishEye plugin for Jira, which takes care of
+You just have to install the FishEye plugin for JIRA, which takes care of
 talking to Klonfisch and the commit visualization.
 
 
@@ -102,7 +102,7 @@ Gitorious will then call ``/webhook-call.php`` for each single commit
 to a repository.
 
 
-Jira setup
+JIRA setup
 ==========
 1. Install the FishEye plugin. Just installation, no configuration
 2. Go to Administration / Plugins / Application Links
@@ -116,7 +116,7 @@ You do not need to setup any project connections.
 
 Now do a commit, mentioning the issue number (e.g. "JGA-11") in the commit
 message.
-You will see the commit in Jira's "Source" tab.
+You will see the commit in JIRA's "Source" tab.
 
 
 ============
@@ -128,9 +128,9 @@ Also see `Missing features`_.
 Clicking on repository links does not work
 ==========================================
 Klonfisch simulates only one git repository, mainly to reduce the number
-of requests from Jira.
+of requests from JIRA.
 (helpful if you have 700+ repositories, and 200+ repositories for a single
-Jira project)
+JIRA project)
 This leads to the issue that only the repository "test" is shown for
 the commits, even though they are from a different repository.
 
@@ -154,9 +154,9 @@ If you fail to do so, you will see errors like
  was not found for instance 'FishEyeInstanceImpl...'
 
 
-Crucible links + buttons in Jira
+Crucible links + buttons in JIRA
 ================================
-You will see "Create Crucible reviews" links in Jira's issue tab.
+You will see "Create Crucible reviews" links in JIRA's issue tab.
 
 I have no idea how to deactivate them.
 If you know how, tell me.
