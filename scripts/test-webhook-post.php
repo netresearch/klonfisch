@@ -1,5 +1,6 @@
 <?php
-$url = 'http://klonfisch.cyberdyne.nr:8070/webhook-call.php';
+require __DIR__ . '/../data/klonfisch.config.php';
+$url = $klonfischUrl . 'webhook-call.php';
 $data = <<<JSON
 {
     "after": "df5744f7bc8663b39717f87742dc94f52ccbf4dd",
