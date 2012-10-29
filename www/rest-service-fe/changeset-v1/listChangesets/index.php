@@ -45,6 +45,10 @@ $nRevisionsFrom = 0;
 $nRevisionsTo   = 10;
 
 if ($_GET['expand'] != '') {
+    //5.0.10: "expand=changesets[-21:-1].revisions[0:29],reviews"
+    if (substr($_GET['expand'], -8) == ',reviews') {
+        $_GET['expand'] = substr($_GET['expand'], 0, -8);
+    }
     $arGetParts = explode('.', $_GET['expand']);
     $pattern = '#^([a-z]+)\[([-0-9]+):([-0-9]+)\]$#';
     foreach ($arGetParts as $getPart) {
