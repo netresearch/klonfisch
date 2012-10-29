@@ -16,7 +16,7 @@ Features
 ========
 
 - Simulates a part of the FishEye API
-- Works with the JIRA FishEye plugin 5.0.7
+- Works with the JIRA FishEye plugin 5.0.7 and 5.0.10
 - Shows commits on issues (Tab "Source")
 - Shows commits for projects (Tab "Source")
 
