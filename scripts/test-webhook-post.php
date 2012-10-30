@@ -47,6 +47,7 @@ $context = stream_context_create(
         )
     )
 );
+echo 'Sending request to ' . $url . "\n";
 $fp = fopen($url, 'rb', false, $context);
 if (!$fp) {
     $res = false;
@@ -62,7 +63,7 @@ if (!$fp) {
 if ($res === false) {
     throw new Exception("POST to $url failed: $php_errormsg");
 }
-
+//var_dump(stream_get_meta_data($fp));
 //echo "Answer:\n";
 echo $res;
 ?>
