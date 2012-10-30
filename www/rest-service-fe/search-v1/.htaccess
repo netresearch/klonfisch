@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteBase /
+#do not put additional search api requests in apache error log
+RewriteRule ^crossRepositoryQuery - [L,R=404]
