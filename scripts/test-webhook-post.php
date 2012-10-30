@@ -41,7 +41,7 @@ $context = stream_context_create(
     array(
         'http' => array(
             'method' => 'POST',
-            //'ignore_errors' => true,
+            'ignore_errors' => true,
             'header'  => 'Content-type: application/x-www-form-urlencoded',
             'content' => http_build_query(array('payload' => $data))
         )
@@ -50,20 +50,18 @@ $context = stream_context_create(
 echo 'Sending request to ' . $url . "\n";
 $fp = fopen($url, 'rb', false, $context);
 if (!$fp) {
-    $res = false;
-} else {
-    // If you're trying to troubleshoot problems, try uncommenting the
-    // next two lines; it will show you the HTTP response headers across
-    // all the redirects:
-    // $meta = stream_get_meta_data($fp);
-    // var_dump($meta['wrapper_data']);
-    $res = stream_get_contents($fp);
+    echo "Error opening URL\n";
+    exit(1);
 }
 
-if ($res === false) {
-    throw new Exception("POST to $url failed: $php_errormsg");
+$res = stream_get_contents($fp);
+$meta = stream_get_meta_data($fp);
+if (false === preg_match('#^HTTP./. 2..#', $meta['wrapper_data'][0])) {
+    echo "POST to $url failed:\n";
+    echo $meta['wrapper_data'][0] . "\n";
+    echo $res;
+    exit(2);
 }
-//var_dump(stream_get_meta_data($fp));
 //echo "Answer:\n";
-echo $res;
+echo $res . "\n";
 ?>
