@@ -14,6 +14,7 @@ declare(encoding = 'utf-8');
  * @license  AGPLv3 or later
  * @link     https://gitorious.nr/klonfisch
  */
+header('HTTP/1.0 500 Internal Server Error');
 require __DIR__ . '/../data/klonfisch.config.php';
 
 if (!isset($_POST['payload'])) {
@@ -48,7 +49,7 @@ $stmt = $db->prepare(
 $count = 0;
 foreach ($payload->commits as $commit) {
     ++$count;
-    $stmt->execute(
+    $ok = $stmt->execute(
         array(
             ':c_hash'    => $commit->id,
             ':c_author'  => $commit->author->name
@@ -62,6 +63,10 @@ foreach ($payload->commits as $commit) {
             ':c_branch'  => $payload->ref
         )
     );
+    if (!$ok) {
+        handleError($stmt);
+        continue;
+    }
 
     linkKeywordsAndCommit(
         getKeywordsFromMessage($commit->message),
@@ -109,11 +114,14 @@ function linkKeywordsAndCommit($arKeywords, $nCommitId, $db)
 
     foreach ($arKeywords as $keyword) {
         $nKeywordId = getKeywordId($keyword, $db);
-        $db->exec(
+        $numAffected = $db->exec(
             'INSERT INTO keywords_commits'
             . ' SET k_id = ' . (int) $nKeywordId
             . ' , c_id = ' . (int) $nCommitId
         );
+        if ($numAffected === false) {
+            handleError($db);
+        }
     }
 }
 
@@ -125,23 +133,43 @@ function linkKeywordsAndCommit($arKeywords, $nCommitId, $db)
  * @param string $keyword Keyword to get database ID for
  * @param PDO    $db      Database connection object
  *
- * @return integer Database ID of keyword
+ * @return integer|boolean Database ID of keyword, false on error
  */
 function getKeywordId($keyword, $db)
 {
     $stmt = $db->prepare(
         'SELECT k_id FROM keywords WHERE k_keyword = :keyword'
     );
-    $stmt->execute(array(':keyword' => $keyword));
+    $ok = $stmt->execute(array(':keyword' => $keyword));
+    if ($ok === false) {
+        handleError($stmt);
+        return false;
+    }
     $arRow = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($arRow !== false) {
         return (int) $arRow['k_id'];
     }
 
     $stmt = $db->prepare('INSERT INTO keywords SET k_keyword = :keyword');
-    $stmt->execute(array(':keyword' => $keyword));
+    $ok = $stmt->execute(array(':keyword' => $keyword));
+    if ($ok === false) {
+        handleError($stmt);
+        return false;
+    }
+
     return (int) $db->lastInsertId();
 }
 
+function handleError($pdoOrStmt)
+{
+    header('HTTP/1.0 500 SQL error');
+    trigger_error(
+        'SQL Error: ' . implode('; ', $pdoOrStmt->errorInfo()),
+        E_USER_WARNING
+    );
+    exit();
+}
+
+header('HTTP/1.0 200 OK');
 echo $count . " commits inserted\n";
 ?>
