@@ -85,7 +85,7 @@ foreach ($payload->commits as $commit) {
 function getKeywordsFromMessage($message)
 {
     $num = preg_match_all(
-        '#(([A-Z]{3,})-[0-9]+)#',
+        '#(([A-Z]{2,})-[0-9]+)#',
         $message,
         $arMatches
     );
