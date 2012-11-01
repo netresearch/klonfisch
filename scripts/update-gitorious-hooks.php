@@ -31,7 +31,7 @@ foreach ($argv as $arg) {
         echo "klonfisch update-gitorious-hooks 0.0.1\n";
         exit();
     } else {
-        err('Unknown argument: ' . $arg);
+        klerr('Unknown argument: ' . $arg);
         exit(3);
     }
 }
