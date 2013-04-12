@@ -125,6 +125,20 @@ Known issues
 
 Also see `Missing features`_.
 
+Commits on new branches are not shown
+=====================================
+When creating a new branch, committing on it and then pushing it to Gitorious,
+Klonfisch does not show the commits.
+
+Reason for this is `bug #166`__ in Gitorious; we do not get information
+about that commits.
+
+You can work around the bug by pushing the branch directly after creating it,
+and committing to it afterwards.
+
+__ https://issues.gitorious.org/issues/166
+
+
 Clicking on repository links does not work
 ==========================================
 Klonfisch simulates only one git repository, mainly to reduce the number
@@ -135,7 +149,6 @@ This leads to the issue that only the repository "test" is shown for
 the commits, even though they are from a different repository.
 
 Use the branch link instead (``master in $project/$repo``).
-
 
 
 Removing application links
