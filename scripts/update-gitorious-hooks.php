@@ -128,7 +128,7 @@ while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
     if (!$bCreateNew) {
         continue;
     }
-    if ($arRow['h_url'] != $hookUrl) {
+    if ($arRow['h_url'] === null) {
         kllog(
             'Creating hook for '
             . $arRow['p_slug'] . '/' . $arRow['r_name']
