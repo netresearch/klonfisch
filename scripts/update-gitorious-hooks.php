@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * Registers or removes the Klonfisch Gitorious web hook
@@ -94,14 +95,20 @@ checkDbResult($stmt, $bOk);
 
 
 //remove or register hooks
-$nCount = 0;
+$nCount = $nExisting = $nMissing = $nCreated = $nDeleted = 0;
 while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
     ++$nCount;
+
     kllog(
         $arRow['p_slug'] . '/' . $arRow['r_name']
         . ' has ' . ($arRow['h_url'] === null ? 'no': 'a') . ' hook',
         2
     );
+    if ($arRow['h_url'] === null) {
+        ++$nMissing;
+    } else {
+        ++$nExisting;
+    }
 
     if ($arRow['h_id'] !== null && $bRemoveExisting) {
         //existing hook
@@ -115,6 +122,7 @@ while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
         checkDbResult($stmtDel, $bOk);
         $arRow['h_id']  = null;
         $arRow['h_url'] = null;
+        ++$nDeleted;
     }
 
     if (!$bCreateNew) {
@@ -143,10 +151,15 @@ while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
             )
         );
         checkDbResult($stmtIns, $bOk);
+        ++$nCreated;
     }
 }
 
 kllog('Checked ' . $nCount . ' repositories');
+kllog($nExisting . ' existing hooks', 2);
+kllog($nMissing . ' missing hooks', 2);
+kllog($nCreated . ' hooks created', 2);
+kllog($nDeleted . ' hooks deleted', 2);
 
 
 function kllog($msg, $level = 1)
