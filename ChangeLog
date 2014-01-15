@@ -1,3 +1,7 @@
+2014-01-15  Christian Weiske  <christian.weiske@netresearch.de>
+
+	* Support Gitorious 3.0 hook registration
+
 2012-10-29  Christian Weiske  <christian.weiske@netresearch.de>
 
 	* Fix JGA-13: expand parameter is invalid with FishEye Plugin 5.0.10
@@ -6,4 +10,3 @@
 2012-09-13  Christian Weiske  <christian.weiske@netresearch.de>
 
 	* First public version 0.1.0
-
