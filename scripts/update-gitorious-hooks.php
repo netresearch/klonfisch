@@ -84,12 +84,12 @@ $stmt = $db->prepare(
     'SELECT'
     . '  r.id AS r_id, r.name AS r_name'
     . ', p.slug as p_slug'
-    . ', h.id AS h_id, h.url AS h_url'
+    . ', h.id AS h_id, h.data AS h_url'
     . ' FROM repositories r'
     . ' JOIN projects p ON r.project_id = p.id'
-    . ' LEFT JOIN hooks h ON r.id = h.repository_id AND h.url = :url'
+    . ' LEFT JOIN services h ON r.id = h.repository_id AND h.service_type = "web_hook" AND h.data LIKE :url'
 );
-$bOk = $stmt->execute(array(':url' => $hookUrl));
+$bOk = $stmt->execute(array(':url' => "%\n:url: " . $hookUrl . "\n%"));
 checkDbResult($stmt, $bOk);
 
 
@@ -110,7 +110,7 @@ while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
             . $arRow['p_slug'] . '/' . $arRow['r_name']
             . ': ' . $arRow['h_url']
         );
-        $stmtDel = $db->prepare('DELETE FROM hooks WHERE id = :id');
+        $stmtDel = $db->prepare('DELETE FROM services WHERE id = :id');
         $bOk = $stmtDel->execute(array(':id' => $arRow['h_id']));
         checkDbResult($stmtDel, $bOk);
         $arRow['h_id']  = null;
@@ -127,17 +127,19 @@ while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
             . ': ' . $hookUrl
         );
         $stmtIns = $db->prepare(
-            'INSERT INTO hooks'
+            'INSERT INTO services'
             . ' SET user_id = :user_id'
             . ', repository_id = :repository_id'
-            . ', url = :url'
+            . ', service_type = "web_hook"'
+            . ', data = :url'
             . ', created_at = NOW(), updated_at = NOW()'
         );
         $bOk = $stmtIns->execute(
             array(
                 ':user_id' => $nUserId,
                 ':repository_id' => $arRow['r_id'],
-                ':url' => $hookUrl
+                ':url' => "---\n"
+                . ':url: ' . $hookUrl . "\n"
             )
         );
         checkDbResult($stmtIns, $bOk);
