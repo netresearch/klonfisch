@@ -29,7 +29,6 @@ if ($payload === null) {
     echo "Payload cannot be decoded\n";
     exit(1);
 }
-
 $db = new PDO(
     $dbDsn, $dbUser, $dbPass,
     array(
@@ -56,10 +55,10 @@ foreach ($payload->commits as $commit) {
             . ' <' . $commit->author->email . '>',
             ':c_date'    => $commit->committed_at,
             ':c_message' => $commit->message,
-            ':c_url'     => $commit->url,
+            ':c_url'     => fixUrl($commit->url),
             ':c_project_name'    => $payload->project->name,
             ':c_repository_name' => $payload->repository->name,
-            ':c_repository_url'  => $payload->repository->url,
+            ':c_repository_url'  => fixUrl($payload->repository->url),
             ':c_branch'  => $payload->ref
         )
     );
@@ -73,6 +72,20 @@ foreach ($payload->commits as $commit) {
         $db->lastInsertId(),
         $db
     );
+}
+
+/**
+ * Gitorious 3.0 has a bug: urls are broken when you use https.
+ *
+ * @param string $url URL to fix
+ *
+ * @return string Fixed url
+ */
+function fixUrl($url)
+{
+    //NRTECH-1589: fix broken https URLs with gitorious 3.0
+    $url = str_replace('https://gitorious.nr:80/', 'https://gitorious.nr/', $url);
+    return $url;
 }
 
 /**
