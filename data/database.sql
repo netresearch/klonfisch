@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `commits`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commits` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
-  `c_hash` varchar(32) NOT NULL,
+  `c_hash` varchar(64) NOT NULL,
   `c_author` varchar(96) NOT NULL,
   `c_date` datetime NOT NULL,
   `c_message` mediumtext NOT NULL,

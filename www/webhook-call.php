@@ -48,12 +48,17 @@ $stmt = $db->prepare(
 $count = 0;
 foreach ($payload->commits as $commit) {
     ++$count;
+    
+    if (preg_match('/^(\d{4})\-(\d{2})\-(\d{2})T(\d{2}):(\d{2}):(\d{2})\+(\d{2}):(\d{2})$/', $useDate, $matches)) {
+        $useDate = $matches[1] . "-" . $matches[2] . "-" . $matches[3] . " " . $matches[4] . ":" . $matches[5] . ":" . $matches[6];
+    }
+
     $ok = $stmt->execute(
         array(
             ':c_hash'    => $commit->id,
             ':c_author'  => $commit->author->name
             . ' <' . $commit->author->email . '>',
-            ':c_date'    => $commit->committed_at,
+            ':c_date'    => $useDate,
             ':c_message' => $commit->message,
             ':c_url'     => fixUrl($commit->url),
             ':c_project_name'    => $payload->project->name,
@@ -62,6 +67,7 @@ foreach ($payload->commits as $commit) {
             ':c_branch'  => $payload->ref
         )
     );
+
     if (!$ok) {
         handleError($stmt);
         continue;

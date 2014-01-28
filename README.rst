@@ -69,7 +69,7 @@ talking to Klonfisch and the commit visualization.
 Dependencies
 ============
 
-- PHP 5.3+
+- PHP 5.3+ with modules pdo_mysql, pdo and xml (XMLWriter)
 - Apache with ``mod_rewrite`` enabled
 - MySQL (or any other database supported by PDO)
 
@@ -87,7 +87,7 @@ Klonfisch setup
    ``data/klonfisch.config.php`` and adjust it to your environment.
 5. Setup your (apache) webserver by adding a virtual host and pointing its
    document root to ``$klonfisch/www/``
-
+6. Change the owner of ``$klonfisch/www`` to your Apache user
 
 Gitorious setup
 ===============
