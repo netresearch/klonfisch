@@ -105,11 +105,16 @@ to a repository.
 JIRA setup
 ==========
 1. Install the FishEye plugin. Just installation, no configuration
-2. Go to Administration / Plugins / Application Links
+2. Go to Administration / Applications / Application Links
 3. Click "Add Application Link"
 4. Set the Server URL, e.g. ``http://klonfisch.gitorious.company.com/``
 5. Disable ``Also create a link from "klonfisch" back to to this server``
 6. Finish the application link setup
+
+Hide the review buttons:
+
+1. Click "Configure FishEye Server" in the application links list
+1. Set "Integration setup" to "FishEye integration only"
 
 That's it. You do not need to setup any authentication.
 You do not need to setup any project connections.
