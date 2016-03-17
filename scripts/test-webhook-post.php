@@ -9,8 +9,8 @@ $context = stream_context_create(
         'http' => array(
             'method' => 'POST',
             'ignore_errors' => true,
-            'header'  => 'Content-type: application/x-www-form-urlencoded',
-            'content' => http_build_query(array('payload' => $data))
+            'header'  => 'Content-type: application/json',
+            'content' => $data
         )
     )
 );
