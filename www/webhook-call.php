@@ -1,7 +1,6 @@
 <?php
-declare(encoding = 'utf-8');
 /**
- * Accepts gitorious web hook calls and stores them
+ * Accepts gitlab web hook calls and stores them
  * in the database.
  *
  * Test it with scripts/test-webhook-post.php
@@ -17,13 +16,18 @@ declare(encoding = 'utf-8');
 header('HTTP/1.0 500 Internal Server Error');
 require __DIR__ . '/../data/klonfisch.config.php';
 
-if (!isset($_POST['payload'])) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('HTTP/1.0 400 Bad request');
-    echo "Payload missing\n";
+    echo "POST your data, please\n";
+    exit(1);
+}
+if ($_SERVER['CONTENT_TYPE'] !== 'application/json') {
+    header('HTTP/1.0 400 Bad request');
+    echo "POST content type has to be application/json\n";
     exit(1);
 }
 
-$payload = json_decode($_POST['payload']);
+$payload = json_decode(file_get_contents('php://input'));
 if ($payload === null) {
     header('HTTP/1.0 400 Bad request');
     echo "Payload cannot be decoded\n";
@@ -53,10 +57,10 @@ foreach ($payload->commits as $commit) {
             ':c_hash'    => $commit->id,
             ':c_author'  => $commit->author->name
             . ' <' . $commit->author->email . '>',
-            ':c_date'    => $commit->committed_at,
+            ':c_date'    => $commit->timestamp,
             ':c_message' => $commit->message,
             ':c_url'     => fixUrl($commit->url),
-            ':c_project_name'    => $payload->project->name,
+            ':c_project_name'    => '',
             ':c_repository_name' => $payload->repository->name,
             ':c_repository_url'  => fixUrl($payload->repository->url),
             ':c_branch'  => $payload->ref

@@ -1,6 +1,6 @@
 <?php
 /**
- * Redirects a Fisheye branch link to Gitorious
+ * Redirects a Fisheye branch link to Gitlab
  *
  * URL style: /changelog/~br=master in project/repository/test
  *
@@ -19,6 +19,6 @@ if (!isset($_GET['br']) || $_GET['br'] == '') {
 list($branch, $rest) = explode(' in ', $_GET['br']);
 list($project, $repo, $testrepo) = explode('/', $rest);
 
-$url = $gitoriousUrl . $project . '/' . $repo . '/commits/' . $branch;
+$url = $gitlabUrl . $project . '/' . $repo . '/commits/' . $branch;
 header('Location: ' . $url);
 ?>
