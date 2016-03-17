@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 echo sprintf(
     '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

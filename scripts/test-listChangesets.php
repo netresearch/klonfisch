@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 //JGA-4 is an issue, "JGA" would be the project only
 echo file_get_contents(
