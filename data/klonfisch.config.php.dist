@@ -2,16 +2,10 @@
 //generate it with scripts/gen-uuid.php
 $klonfischUuid = '46bc9c7c-0bad-3503-9ddf-0123456789ab';
 
-$dbDsn = 'mysql:host=192.168.1.47;dbname=klonfisch_cwe';
+$dbDsn = 'mysql:host=192.168.1.47;dbname=klonfisch';
 $dbUser = 'klonfisch';
 $dbPass = 'klonfisch';
 $gitlabUrl = 'https://gitlab.example.org/';
 
-$klonfischUrl = 'http://klonfisch.gitorious.nr/';
-
-$gitoriousDbDsn  = 'mysql:host=192.168.1.47;dbname=gitorioushooktest';
-$gitoriousDbUser = 'klonfisch';
-$gitoriousDbPass = 'klonfisch';
-//user login of gitorious user that creates the hooks
-$gitoriousDbHookUser = 'christian-weiske';
+$klonfischUrl = 'http://klonfisch.gitlab.example.org/';
 ?>

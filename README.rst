@@ -1,12 +1,16 @@
-**********************************************
-Klonfisch, the FishEye simulator for Gitorious
-**********************************************
+*******************************************
+Klonfisch, the FishEye simulator for GitLab
+*******************************************
 
-Implements the Atlassian FishEye__ API for Gitorious__, so that
-you can view Gitorious Commits in JIRA__.
+Implements the Atlassian FishEye__ API for GitLab__, so that
+you can view GitLab commits in JIRA__.
+
+It's better than all the JIRA Git plugins because it displays the commits
+in a separate "Source" tab instead of adding a comment or activity for each
+commit.
 
 __ http://atlassian.com/software/fisheye/
-__ https://gitorious.org/gitorious
+__ https://gitlab.com/
 __ http://atlassian.com/software/jira/
 
 .. contents::
@@ -16,19 +20,17 @@ Features
 ========
 
 - Simulates a part of the FishEye API
-- Works with the JIRA FishEye plugin 5.0.7 and 5.0.10
+- Works with the JIRA FishEye plugin 5.0.7, 5.0.10 and 7.0.13
 - Shows commits on issues (Tab "Source")
 - Shows commits for projects (Tab "Source")
 
+
 Missing features
 ================
-- Showing files that got changed in a commit. Waiting for
-  `issue #128`__
+- Showing files that got changed in a commit.
 - Project statistics
 - Authentication - everyone can see all commits
 - Activity streams
-
-__ https://issues.gitorious.org/issues/128
 
 
 ===========
@@ -50,9 +52,9 @@ Screenshots
 ============
 How it works
 ============
-Klonfisch is a PHP application that sits between JIRA and Gitorious:
+Klonfisch is a PHP application that sits between JIRA and GitLab.
 
-Gitorious sends commit information to Klonfisch which stores them
+GitLab sends commit information to Klonfisch which stores them
 in a MySQL database.
 This is done via "web hooks".
 
@@ -89,16 +91,30 @@ Klonfisch setup
    document root to ``$klonfisch/www/``
 
 
-Gitorious setup
-===============
-Klonfisch keeps record of commits to your Gitorious instance via web hooks.
+GitLab setup
+============
+Klonfisch keeps record of commits to your GitLab instance via web hooks.
 You can setup them manually in the database, or let Klonfisch create the
 hooks automatically.
 
-Run ``scripts/update-gitorious-hooks.php`` ever hour to automatically
-register the hook for newly created repositories.
+Manual configuration
+--------------------
+In every GitLab project (repository), you have to do this:
 
-Gitorious will then call ``/webhook-call.php`` for each single commit
+#. In GitLab project settings, click "Web Hooks"
+#. Add a new Web Hook for commits only, to the URL  ``http://klonfisch.example.org/webhook-call.php``
+
+
+Automatic configuration
+-----------------------
+Make a copy of ``data/gitlab-klonfisch.sql.dist`` and replace
+``http://klonfisch.example.org`` with your klonfisch domain.
+
+Then let cron run the following command every hour on the GitLab server::
+
+    gitlab-rails dbconsole < gitlab-klonfisch.sql
+
+GitLab will then call ``/webhook-call.php`` for each single commit
 to a repository.
 
 
@@ -107,14 +123,14 @@ JIRA setup
 1. Install the FishEye plugin. Just installation, no configuration
 2. Go to Administration / Applications / Application Links
 3. Click "Add Application Link"
-4. Set the Server URL, e.g. ``http://klonfisch.gitorious.company.com/``
+4. Set the Server URL, e.g. ``http://klonfisch.gitlab.example.org/``
 5. Disable ``Also create a link from "klonfisch" back to to this server``
 6. Finish the application link setup
 
 Hide the review buttons:
 
-1. Click "Configure FishEye Server" in the application links list
-1. Set "Integration setup" to "FishEye integration only"
+#. Click "Configure FishEye Server" in the application links list
+#. Set "Integration setup" to "FishEye integration only"
 
 That's it. You do not need to setup any authentication.
 You do not need to setup any project connections.
@@ -129,19 +145,6 @@ Known issues
 ============
 
 Also see `Missing features`_.
-
-Commits on new branches are not shown
-=====================================
-When creating a new branch, committing on it and then pushing it to Gitorious,
-Klonfisch does not show the commits.
-
-Reason for this is `bug #166`__ in Gitorious; we do not get information
-about that commits.
-
-You can work around the bug by pushing the branch directly after creating it,
-and committing to it afterwards.
-
-__ https://issues.gitorious.org/issues/166
 
 
 Clicking on repository links does not work
@@ -167,18 +170,9 @@ If you fail to do so, you will see errors like
  This list may be incomplete, as errors occurred whilst retrieving
  source from linked applications:
 
- Repository test on http://klonfisch.gitorious.nr/ failed:
+ Repository test on http://klonfisch.example.org/ failed:
  The application link with id '46bc9c7c-0bad-3503-9ddf-0123456789ab'
  was not found for instance 'FishEyeInstanceImpl...'
-
-
-Crucible links + buttons in JIRA
-================================
-You will see "Create Crucible reviews" links in JIRA's issue tab.
-
-I have no idea how to deactivate them.
-If you know how, tell me.
-
 
 
 ===============
@@ -194,11 +188,11 @@ __ http://www.gnu.org/licenses/agpl
 
 Author
 ======
-Christian Weiske, `Netresearch GmbH & Co KG`__
+Christian Weiske, `Mogic GmbH`__
 
-__ http://www.netresearch.de/
+__ http://mogic.com/
 
 
 Homepage
 ========
-Klonfisch is available at https://github.com/netresearch/klonfisch
+Klonfisch is available at https://github.com/mogic-le/klonfisch

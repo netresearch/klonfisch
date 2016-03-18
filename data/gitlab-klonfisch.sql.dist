@@ -1,0 +1,13 @@
+INSERT INTO web_hooks
+ (url,project_id,created_at,updated_at,TYPE,push_events,issues_events,merge_requests_events,tag_push_events,note_events,enable_ssl_verification,build_events)
+SELECT
+ 'http://klonfisch.example.org/webhook-call.php',
+ projects.id,
+ NOW(), NOW(),
+ 'ProjectHook',
+ TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE
+FROM projects
+ LEFT JOIN web_hooks
+  ON projects.id = web_hooks.project_id
+   AND web_hooks.url = 'http://klonfisch.example.org/webhook-call.php'
+ WHERE web_hooks.id IS NULL;
