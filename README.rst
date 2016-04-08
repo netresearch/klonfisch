@@ -175,6 +175,14 @@ If you fail to do so, you will see errors like
  was not found for instance 'FishEyeInstanceImpl...'
 
 
+=======
+Testing
+=======
+Search for commits::
+
+  https://klonfisch.example.org/rest-service-fe/changeset-v1/listChangesets/?expand=&rep=test&comment=ABC-1
+
+
 ===============
 About Klonfisch
 ===============
