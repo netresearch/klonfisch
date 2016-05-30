@@ -1,0 +1,44 @@
+{
+    "object_kind": "push",
+    "before": "64b242aa4168fbfef8f180394ee8f705a529d02b",
+    "after": "7402d3f10290704d52e18511d21ab46739e8694e",
+    "ref": "refs\/heads\/master",
+    "checkout_sha": "7402d3f10290704d52e18511d21ab46739e8694e",
+    "message": null,
+    "user_id": 29,
+    "user_name": "jason",
+    "user_email": "jason@nospam.org",
+    "project_id": 339,
+    "repository": {
+        "name": "jira-test",
+        "url": "git@gitlab.example.org:test\/jira-test.git",
+        "description": "",
+        "homepage": "https:\/\/gitlab.example.org\/test\/jira-test",
+        "git_http_url": "https:\/\/gitlab.example.org\/test\/jira-test.git",
+        "git_ssh_url": "git@gitlab.example.org:test\/jira-test.git",
+        "visibility_level": 0
+    },
+    "commits": [
+        {
+            "id": "7402d3f10290704d52e18511d21ab46739e8694e",
+            "message": "added webhook listener\n",
+            "timestamp": "2016-03-07T10:48:50+01:00",
+            "url": "https:\/\/gitlab.example.org\/text\/jira-test\/commit\/7402d3f10290704d52e18511d21ab46739e8694e",
+            "author": {
+                "name": "jason",
+                "email": "jason@nospam.org"
+            }
+        },
+        {
+            "id": "e22dbdf0925c24398a952a29795066b202f9a699",
+            "message": "SMM-2\n",
+            "timestamp": "2016-03-07T09:35:29+01:00",
+            "url": "https:\/\/gitlab.example.org\/test\/jira-test\/commit\/e22dbdf0925c24398a952a29795066b202f9a699",
+            "author": {
+                "name": "jason",
+                "email": "jason@nospam.org"
+            }
+        }
+    ],
+    "total_commits_count": 2
+}
