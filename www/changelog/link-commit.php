@@ -20,9 +20,9 @@ if (!isset($_GET['cs']) || $_GET['cs'] == '') {
 //Commit hash link
 // /changelog/test?cs=985f39f6d857ac2e1e4e1cab3d235767
 $hash = $_GET['cs'];
-if (strlen($hash) !== 32) {
+if (strlen($hash) !== 40 && strlen($hash) !== 32) {
     header('HTTP/1.0 400 Bad Request');
-    echo "Length of commit hash is not 32\n";
+    echo "Length of commit hash is not 40 nor 32\n";
     exit(1);
 }
 
