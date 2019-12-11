@@ -68,7 +68,7 @@ foreach ($payload->commits as $commit) {
             ':c_hash'    => $commit->id,
             ':c_author'  => $commit->author->name
             . ' <' . $commit->author->email . '>',
-            ':c_date'    => $commit->timestamp,
+            ':c_date'    => date('Y-m-d H:i:s', strtotime($commit->timestamp)),
             ':c_message' => $commit->message,
             ':c_url'     => fixUrl($commit->url),
             ':c_project_name'    => $project,
