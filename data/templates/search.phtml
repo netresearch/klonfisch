@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/search.css">
+    <title>
+        <?= isset($_REQUEST['q'])?'Commit search results for ticket ' . htmlspecialchars($_REQUEST['q']):'Find commits by ticket number' ?>
+    </title>
+</head>
+
+<body>
+    <div class="search">
+        <a href="<?= '/scripts/commitHistoryforJira.php#.user.js' ?>" >Greasemonkey script</a> for Jira Cloud integration
+        <form method="GET">
+            <label for="search">
+                Search
+                <input type="text" name="q" id="search" placeholder="ticket number"
+                    value="<?= htmlspecialchars($_REQUEST['q']??'')?>">
+            </label>
+            <input type="Submit" value="send">
+        </form>
+    </div>
+
+    <div class="history">
+        <?php
+        if ($arResults):
+            foreach ($arResults as $ticket):
+                $explode = explode('/-/commit', $ticket['c_url']);
+                $repo = $explode[0];
+                $branch = $repo .'/-/tree/' . $ticket['c_branch'];
+                $split_a = explode(' <', $ticket['c_author']);
+                $author_name = $split_a[0];
+
+                if(isset($author_mail)) {
+                    unset($author_mail);
+                }
+
+                if (isset($split_a[1]) && !empty($split_a[1])) {
+                    $author_mail = substr($split_a[1], 0, -1);
+                }
+        ?>
+        <div class="entry">
+            <p class="nav">
+            <?php if (isset($author_mail)): ?>
+                <a href="mailto:<?= $author_mail?>"><?= htmlspecialchars($author_name) ?></a>
+            <?php else: ?>
+                <?= htmlspecialchars($author_name) ?>
+            <?php endif ?>
+                committed
+                <a class="commit" title="<?= $ticket['c_hash']?>" href="<?= $ticket['c_url'] ?>">
+                    <?= $ticket['c_hash']?>
+                </a>
+                <time class="publish">
+                    <?= $ticket['c_date']?>
+                </time>
+            </p>
+            <div class="commit_details">
+                <p class="message">
+                    <?= htmlspecialchars($ticket['c_message']) ?>
+                </p>
+                <p class="commit_files_container">
+                    <a class="repository_name" href="<?= $repo?>"><?= $ticket['c_repository_name']?></a>
+                    <span class="aui-icon aui-icon-small aui-iconfont-branch"></span>
+                    <a class="repository branch" href="<?= $branch ?>">
+                        <?= $ticket['c_branch']?>
+                        in
+                        <?= $ticket['c_repository_name']?>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <?php
+            endforeach;
+        elseif (isset($_REQUEST['q'])):
+        ?>
+        <p>No commits found</p>
+        <?php endif; ?>
+    </div>
+</body>
+
+</html>
