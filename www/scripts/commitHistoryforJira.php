@@ -10,7 +10,16 @@ if ($content === false) {
     exit(1);
 }
 
-$protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+$protocol = 'http';
+
+if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
+    $protocol = $_SERVER['HTTPS'];
+} else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+    && !empty($_SERVER['HTTP_X_FORWARDED_PROTO'])
+) {
+    $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+}
+
 $url = $protocol . '://' . $_SERVER['HTTP_HOST'];
 $content = str_replace('http://klonfisch', $url, $content);
 
