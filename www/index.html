@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
 <title>Klonfisch, the FishEye simulator for GitLab</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -36,6 +36,14 @@ table.borderless td, table.borderless th {
 
 .hidden {
   display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
 
 a.toc-backref {
   text-decoration: none ;
@@ -161,18 +169,23 @@ h2.subtitle {
 hr.docutils {
   width: 75% }
 
-img.align-left, .figure.align-left, object.align-left {
+img.align-left, .figure.align-left, object.align-left, table.align-left {
   clear: left ;
   float: left ;
   margin-right: 1em }
 
-img.align-right, .figure.align-right, object.align-right {
+img.align-right, .figure.align-right, object.align-right, table.align-right {
   clear: right ;
   float: right ;
   margin-left: 1em }
 
 img.align-center, .figure.align-center, object.align-center {
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
   margin-left: auto;
   margin-right: auto;
 }
@@ -193,6 +206,15 @@ div.align-right {
 
 /* div.align-center * { */
 /*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
 
 ol.simple, ul.simple {
   margin-bottom: 1em }
@@ -371,10 +393,11 @@ commit.</p>
 <li><a class="reference internal" href="#removing-application-links" id="id19">Removing application links</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#about-klonfisch" id="id20">About Klonfisch</a><ul>
-<li><a class="reference internal" href="#license" id="id21">License</a></li>
-<li><a class="reference internal" href="#author" id="id22">Author</a></li>
-<li><a class="reference internal" href="#homepage" id="id23">Homepage</a></li>
+<li><a class="reference internal" href="#testing" id="id20">Testing</a></li>
+<li><a class="reference internal" href="#about-klonfisch" id="id21">About Klonfisch</a><ul>
+<li><a class="reference internal" href="#license" id="id22">License</a></li>
+<li><a class="reference internal" href="#author" id="id23">Author</a></li>
+<li><a class="reference internal" href="#homepage" id="id24">Homepage</a></li>
 </ul>
 </li>
 </ul>
@@ -386,6 +409,8 @@ commit.</p>
 <li>Works with the JIRA FishEye plugin 5.0.7, 5.0.10 and 7.0.13</li>
 <li>Shows commits on issues (Tab &quot;Source&quot;)</li>
 <li>Shows commits for projects (Tab &quot;Source&quot;)</li>
+<li><a class="reference external" href="search.php">Search for a ticket number</a> and get the commit history</li>
+<li>Show the commit history in JIRA Cloud with the <a class="reference external" href="/scripts/commitHistoryforJira.php#.user.js">Greasemonkey script</a></li>
 </ul>
 <div class="section" id="missing-features">
 <h2><a class="toc-backref" href="#id7">Missing features</a></h2>
@@ -517,18 +542,25 @@ was not found for instance 'FishEyeInstanceImpl...'</p>
 </blockquote>
 </div>
 </div>
+<div class="section" id="testing">
+<h1><a class="toc-backref" href="#id20">Testing</a></h1>
+<p>Search for commits:</p>
+<pre class="literal-block">
+https://klonfisch.example.org/rest-service-fe/changeset-v1/listChangesets/?expand=&amp;rep=test&amp;comment=ABC-1
+</pre>
+</div>
 <div class="section" id="about-klonfisch">
-<h1><a class="toc-backref" href="#id20">About Klonfisch</a></h1>
+<h1><a class="toc-backref" href="#id21">About Klonfisch</a></h1>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id21">License</a></h2>
+<h2><a class="toc-backref" href="#id22">License</a></h2>
 <p>Klonfisch is licensed under the <a class="reference external" href="http://www.gnu.org/licenses/agpl">AGPL v3</a> or later.</p>
 </div>
 <div class="section" id="author">
-<h2><a class="toc-backref" href="#id22">Author</a></h2>
+<h2><a class="toc-backref" href="#id23">Author</a></h2>
 <p>Christian Weiske, <a class="reference external" href="http://mogic.com/">Mogic GmbH</a></p>
 </div>
 <div class="section" id="homepage">
-<h2><a class="toc-backref" href="#id23">Homepage</a></h2>
+<h2><a class="toc-backref" href="#id24">Homepage</a></h2>
 <p>Klonfisch is available at <a class="reference external" href="https://github.com/mogic-le/klonfisch">https://github.com/mogic-le/klonfisch</a></p>
 </div>
 </div>

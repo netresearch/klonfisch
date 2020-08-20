@@ -23,6 +23,8 @@ Features
 - Works with the JIRA FishEye plugin 5.0.7, 5.0.10 and 7.0.13
 - Shows commits on issues (Tab "Source")
 - Shows commits for projects (Tab "Source")
+- `Search for a ticket number <search.php>`_ and get the commit history
+- Show the commit history in JIRA Cloud with the `Greasemonkey script </scripts/commitHistoryforJira.php#.user.js>`_
 
 
 Missing features
