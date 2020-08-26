@@ -10,6 +10,10 @@
 window.addEventListener('load', function () {
 
     var ticket = window.location.href.split('/').slice(-1)[0];
+    if (ticket.includes('?')) {
+        ticket = ticket.split('?')[0];
+    }
+
     var url = 'http://klonfisch/search.php?q=' + ticket;
     var script = document.createElement('script');
     addLabel(url);
