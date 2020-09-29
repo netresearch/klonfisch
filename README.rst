@@ -91,6 +91,8 @@ Klonfisch setup
    ``data/klonfisch.config.php`` and adjust it to your environment.
 5. Setup your (apache) webserver by adding a virtual host and pointing its
    document root to ``$klonfisch/www/``
+6. Execute ``curl -I http://klonfisch.example.org/rest-service-fe/server-v1``
+   and if you get a ``401 Unauthorized``, you have done everything correct
 
 
 GitLab setup
