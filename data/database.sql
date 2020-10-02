@@ -31,7 +31,7 @@ CREATE TABLE `commits` (
   `c_url` varchar(128) NOT NULL,
   `c_project_name` varchar(32) NOT NULL,
   `c_repository_name` varchar(32) NOT NULL,
-  `c_repository_url` varchar(64) NOT NULL,
+  `c_repository_url` varchar(128) NOT NULL,
   `c_branch` varchar(128) NOT NULL,
   PRIMARY KEY (`c_id`),
   UNIQUE KEY `c_id` (`c_id`)
