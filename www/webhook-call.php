@@ -40,13 +40,31 @@ $db = new PDO(
         PDO::ATTR_PERSISTENT => false
     )
 );
-$stmt = $db->prepare(
+
+$findCommit = $db->prepare(
+    'SELECT c_highest_branch, c_id FROM commits'
+    . ' WHERE c_hash = :hash'
+    . ' AND c_repository_name = :c_repository_name'
+);
+
+$updateCommit = $db->prepare(
+    'UPDATE commits SET '
+    . 'c_author = :c_author, c_date =:c_date,'
+    . 'c_message = :c_message, c_url = :c_url,'
+    . 'c_project_name = :c_project_name, c_repository_url = :c_repository_url,'
+    . 'c_repository_name = :c_repository_name,'
+    . 'c_highest_branch = :c_highest_branch'
+    . ' WHERE c_hash = :c_hash'
+    . ' AND c_repository_name = :c_repository_name'
+);
+
+$insertCommit = $db->prepare(
     'INSERT INTO commits'
     . '(c_hash, c_author, c_date, c_message, c_url, c_project_name'
-    . ', c_repository_name, c_repository_url, c_branch)'
+    . ', c_repository_name, c_repository_url, c_highest_branch)'
     . ' VALUES'
     . '(:c_hash, :c_author, :c_date, :c_message, :c_url, :c_project_name'
-    . ', :c_repository_name, :c_repository_url, :c_branch)'
+    . ', :c_repository_name, :c_repository_url, :c_highest_branch)'
 );
 
 $branch = $payload->ref;
@@ -61,32 +79,89 @@ if (substr($payload->repository->url, 0, 4) == 'git@') {
 }
 
 $count = 0;
+$branchPriorities = ['master', 'staging', 'showroom', 'develop'];
 foreach ($payload->commits as $commit) {
     ++$count;
-    $ok = $stmt->execute(
+    unset($cId);
+
+    $findCommit->execute(
         array(
-            ':c_hash'    => $commit->id,
-            ':c_author'  => $commit->author->name
-            . ' <' . $commit->author->email . '>',
-            ':c_date'    => date('Y-m-d H:i:s', strtotime($commit->timestamp)),
-            ':c_message' => $commit->message,
-            ':c_url'     => fixUrl($commit->url),
-            ':c_project_name'    => $project,
+            ':hash' => $commit->id,
             ':c_repository_name' => $payload->repository->name,
-            ':c_repository_url'  => fixUrl($payload->repository->url),
-            ':c_branch'  => $branch,
         )
     );
+    $row = $findCommit->fetch(PDO::FETCH_ASSOC);
+    $new = false;
+
+    if (isset($row['c_highest_branch'])) {
+
+        $hb = $row['c_highest_branch'];
+
+        $updateEntry = true;
+
+        if (in_array($hb, $branchPriorities)) {
+            if (!in_array($branch, $branchPriorities)
+                || array_search($hb, $branchPriorities) < array_search($branch, $branchPriorities)
+            ) {
+                $updateEntry = false;
+            }
+        }
+
+        if ($updateEntry) {
+            $cId = $row['c_id'];
+            $ok = $updateCommit->execute(
+                [
+                    ':c_hash' => $commit->id,
+                    ':c_highest_branch' => $branch,
+                    ':c_author' => $commit->author->name
+                    . ' <' . $commit->author->email . '>',
+                    ':c_date' => date(
+                        'Y-m-d H:i:s', strtotime($commit->timestamp)
+                    ),
+                    ':c_message' => $commit->message,
+                    ':c_url' => fixUrl($commit->url),
+                    ':c_project_name' => $project,
+                    ':c_repository_name' => $payload->repository->name,
+                    ':c_repository_url' => fixUrl(
+                        $payload->repository->url
+                    ),
+                ]
+            );
+
+        } else {
+            $ok = true;
+        }
+    } else {
+        $new = true;
+        $ok = $insertCommit->execute(
+            array(
+                ':c_hash' => $commit->id,
+                ':c_author' => $commit->author->name
+                . ' <' . $commit->author->email . '>',
+                ':c_date' => date(
+                    'Y-m-d H:i:s', strtotime($commit->timestamp)
+                ),
+                ':c_message' => $commit->message,
+                ':c_url' => fixUrl($commit->url),
+                ':c_project_name' => $project,
+                ':c_repository_name' => $payload->repository->name,
+                ':c_repository_url' => fixUrl($payload->repository->url),
+                ':c_highest_branch' => $branch,
+            )
+        );
+    }
     if (!$ok) {
         handleError($stmt);
         continue;
     }
 
-    linkKeywordsAndCommit(
-        getKeywordsFromMessage($commit->message),
-        $db->lastInsertId(),
-        $db
-    );
+    if ($new) {
+        linkKeywordsAndCommit(
+            getKeywordsFromMessage($commit->message),
+            $cId ?? $db->lastInsertId(),
+            $db
+        );
+    }
 }
 
 /**
@@ -200,4 +275,3 @@ function handleError($pdoOrStmt)
 
 header('HTTP/1.0 200 OK');
 echo $count . " commits inserted\n";
-?>

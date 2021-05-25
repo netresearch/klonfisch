@@ -27,7 +27,7 @@
             foreach ($arResults as $ticket):
                 $explode = explode('/-/commit', $ticket['c_url']);
                 $repo = $explode[0];
-                $branch = $repo .'/-/tree/' . $ticket['c_branch'];
+                $branch = $repo .'/-/tree/' . $ticket['c_highest_branch'];
                 $split_a = explode(' <', $ticket['c_author']);
                 $author_name = $split_a[0];
 
@@ -62,7 +62,7 @@
                     <a class="repository_name" href="<?= $repo?>"><?= $ticket['c_repository_name']?></a>
                     <span class="aui-icon aui-icon-small aui-iconfont-branch"></span>
                     <a class="repository branch" href="<?= $branch ?>">
-                        <?= $ticket['c_branch']?>
+                        <?= $ticket['c_highest_branch']?>
                         in
                         <?= $ticket['c_repository_name']?>
                     </a>

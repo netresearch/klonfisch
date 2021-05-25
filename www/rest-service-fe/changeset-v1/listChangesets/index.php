@@ -108,7 +108,7 @@ $xml->writeAttribute('expand', 'changesets');
 $xml->startElement('changesets');
 while ($arRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
     //necessary for branch links
-    $branch = $arRow['c_branch']
+    $branch = $arRow['c_highest_branch']
         . ' in '
         . $arRow['c_project_name'] . '/'
         . $arRow['c_repository_name'];
