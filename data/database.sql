@@ -32,7 +32,7 @@ CREATE TABLE `commits` (
   `c_project_name` varchar(32) NOT NULL,
   `c_repository_name` varchar(32) NOT NULL,
   `c_repository_url` varchar(128) NOT NULL,
-  `c_branch` varchar(128) NOT NULL,
+  `c_highest_branch` varchar(128) NOT NULL,
   PRIMARY KEY (`c_id`),
   UNIQUE KEY `c_id` (`c_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
