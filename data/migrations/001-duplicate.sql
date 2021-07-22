@@ -84,7 +84,5 @@ SELECT c_hash FROM (
 SELECT c_hash FROM commits WHERE c_highest_branch = 'develop') t3)
 AND t1.c_highest_branch != 'develop';
 
-DELETE keywords_commits, keywords FROM keywords_commits
-INNER JOIN keywords
-ON keywords_commits.k_id = keywords.k_id
-WHERE c_id NOT IN ( SELECT c_id FROM commits)
+DELETE keywords_commits FROM keywords_commits
+WHERE keywords_commits.c_id NOT IN ( SELECT c_id FROM commits);
