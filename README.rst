@@ -91,7 +91,14 @@ Klonfisch setup
    ``data/klonfisch.config.php`` and adjust it to your environment.
 5. Setup your (apache) webserver by adding a virtual host and pointing its
    document root to ``$klonfisch/www/``
+6. Execute ``curl -I http://klonfisch.example.org/rest-service-fe/server-v1``
+   and if you get a ``401 Unauthorized``, you have done everything correct
 
+Until v1.1.1
+-----------------------
+Delete all entries of a repository that have the same hash and keep only the entry with the highest branch.
+
+#. Import ``data/migrations/001-duplicate.sql`` into the database
 
 GitLab setup
 ============
